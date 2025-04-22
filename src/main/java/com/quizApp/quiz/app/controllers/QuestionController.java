@@ -22,32 +22,32 @@ public class QuestionController
         this.questionService = questionService;
     }
 
-    @PostMapping(value = "/addQuestion", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public QuestionDto addQuestions(final @RequestBody QuestionDto questionDto)
+    @PostMapping(value = "/addQuestion", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<QuestionDto> addQuestions(final @RequestBody QuestionDto questionDto)
     {
-        return questionService.addQuestions(questionDto);
+        return new ResponseEntity<>(questionService.addQuestions(questionDto), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/allQuestions", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<QuestionDto> getAllQuestions()
+    @GetMapping(value = "/allQuestions", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<QuestionDto>> getAllQuestions()
     {
-        return questionService.getAllQuestions();
+        return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/questions/{category}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<QuestionDto> getQuestionByCategory(final @PathVariable String category)
+    @GetMapping(value = "/questions/{category}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<QuestionDto>> getQuestionByCategory(final @PathVariable String category)
     {
-        return questionService.questionByCategory(category);
+        return new ResponseEntity<>(questionService.questionByCategory(category), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/deleteAllQuestions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/deleteAllQuestions", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Void> deleteAllQuestions()
     {
         questionService.deleteAllQuestions();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "/deleteQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/deleteQuestion/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Void> deleteById(final @PathVariable Integer id)
     {
         questionService.deleteQuestionById(id);

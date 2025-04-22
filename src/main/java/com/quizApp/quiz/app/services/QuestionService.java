@@ -1,7 +1,7 @@
 package com.quizApp.quiz.app.services;
 
 import com.quizApp.quiz.app.dto.QuestionDto;
-import com.quizApp.quiz.app.entities.QuestionEntity;
+import com.quizApp.quiz.app.model.QuestionEntity;
 import com.quizApp.quiz.app.exceptions.ResourceNotFoundException;
 import com.quizApp.quiz.app.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,7 @@ public class QuestionService
     public List<QuestionDto> questionByCategory(final String category)
     {
         List<QuestionEntity> questionEntities = questionRepository.findByCategory(category);
+
         if (questionEntities.isEmpty())
         {
             throw new ResourceNotFoundException("Questions are not found by this category : " + category);

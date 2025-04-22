@@ -1,9 +1,9 @@
 package com.quizApp.quiz.app.services;
 
 import com.quizApp.quiz.app.dto.QuestionDto;
-import com.quizApp.quiz.app.dto.Response;
-import com.quizApp.quiz.app.entities.QuestionEntity;
-import com.quizApp.quiz.app.entities.QuizEntity;
+import com.quizApp.quiz.app.utils.Response;
+import com.quizApp.quiz.app.model.QuestionEntity;
+import com.quizApp.quiz.app.model.QuizEntity;
 import com.quizApp.quiz.app.exceptions.ResourceNotFoundException;
 import com.quizApp.quiz.app.repositories.QuestionRepository;
 import com.quizApp.quiz.app.repositories.QuizRepository;
