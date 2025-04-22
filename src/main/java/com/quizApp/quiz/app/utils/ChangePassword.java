@@ -18,5 +18,6 @@ public class ChangePassword
     private String password;
 
     @NotBlank(message = "Repeat password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String repeatPassword;
 }

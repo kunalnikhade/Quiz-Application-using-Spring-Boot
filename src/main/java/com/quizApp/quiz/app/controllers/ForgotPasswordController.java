@@ -71,7 +71,7 @@ public class ForgotPasswordController
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email : " + email));
 
-        ForgotPasswordEntity forgotPassword = forgotPasswordRepository.findByOtpAndUser(otpCode, user)
+        forgotPasswordRepository.findByOtpAndUser(otpCode, user)
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid or Expired Otp : " + otpCode));
 
         return new ResponseEntity<>("OTP verified !!", HttpStatus.OK);
