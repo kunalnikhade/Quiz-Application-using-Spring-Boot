@@ -20,7 +20,7 @@ public class EmailService
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(mailBody.to());
-        message.setFrom("kunalnikhade.fy20@stvincentngp.edu.in");
+        message.setFrom("your-mail");
         message.setSubject(mailBody.subject());
         message.setText(mailBody.text());
 
