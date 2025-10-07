@@ -1,17 +1,23 @@
 package com.quizApp.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "questions")
 public class QuestionEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name = "category")
     private String category;
@@ -44,7 +50,7 @@ public class QuestionEntity
     {
     }
 
-    public QuestionEntity(final Integer id, final String category, final String questionTitle, final String difficultyLevel, final String option1, final String option2, final String option3, final String option4, final String correctAnswer, final List<QuizEntity> quizzes)
+    public QuestionEntity(final UUID id, final String category, final String questionTitle, final String difficultyLevel, final String option1, final String option2, final String option3, final String option4, final String correctAnswer, final List<QuizEntity> quizzes)
     {
         this.id = id;
         this.category = category;
@@ -58,12 +64,12 @@ public class QuestionEntity
         this.quizzes = quizzes;
     }
 
-    public Integer getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(final Integer id)
+    public void setId(final UUID id)
     {
         this.id = id;
     }

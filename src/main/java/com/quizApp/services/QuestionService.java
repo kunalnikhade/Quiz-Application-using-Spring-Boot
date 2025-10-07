@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,9 +34,9 @@ public class QuestionService
     }
 
     @Transactional
-    public QuestionResponse updateQuestionUid(final QuestionRequest questionRequest, final Integer id)
+    public QuestionResponse updateQuestionUid(final QuestionRequest questionRequest, final UUID Uid)
     {
-        final QuestionEntity question = this.questionRepository.findById(id)
+        final QuestionEntity question = this.questionRepository.findById(Uid)
                 .orElseThrow(() -> new ResourceNotFoundException("Question not found"));
 
         question.setCategory(questionRequest.getCategory());
@@ -80,10 +81,10 @@ public class QuestionService
     }
 
     @Transactional
-    public void deleteQuestionById(final Integer id)
+    public void deleteQuestionById(final UUID Uid)
     {
-        final QuestionEntity question = this.questionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Question are not found by id : " + id));
+        final QuestionEntity question = this.questionRepository.findById(Uid)
+                .orElseThrow(() -> new ResourceNotFoundException("Question are not found by id : " + Uid));
 
         for (QuizEntity quiz : question.getQuizzes())
         {

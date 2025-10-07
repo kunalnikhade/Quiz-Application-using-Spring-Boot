@@ -2,10 +2,12 @@ package com.quizApp.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 public class QuizSubmitRequest
 {
     @NotNull(message = "ID is required")
-    private Integer id;
+    private UUID id;
 
     @NotNull(message = "Response is required")
     private String response;
@@ -14,18 +16,18 @@ public class QuizSubmitRequest
     {
     }
 
-    public QuizSubmitRequest(final Integer id, final String response)
+    public QuizSubmitRequest(final UUID id, final String response)
     {
         this.id = id;
         this.response = response;
     }
 
-    public Integer getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(final Integer id)
+    public void setId(final UUID id)
     {
         this.id = id;
     }

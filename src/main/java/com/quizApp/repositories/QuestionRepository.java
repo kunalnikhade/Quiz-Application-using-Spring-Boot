@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface QuestionRepository extends JpaRepository<QuestionEntity, Integer>
+public interface QuestionRepository extends JpaRepository<QuestionEntity, UUID>
 {
     @Query("SELECT q FROM QuestionEntity q WHERE LOWER(q.category) LIKE LOWER(CONCAT('%', :category, '%'))")
     List<QuestionEntity> findByCategory(final String category);

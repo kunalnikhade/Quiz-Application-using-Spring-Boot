@@ -1,17 +1,23 @@
 package com.quizApp.model.auth;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "forgotPassword")
 public class ForgotPasswordEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "forgotPasswordId")
-    private Integer forgotPasswordId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "forgotPasswordId", updatable = false, nullable = false)
+    private UUID forgotPasswordId;
 
     @Column(
             name = "otpCode",
@@ -31,7 +37,7 @@ public class ForgotPasswordEntity
     {
     }
 
-    public ForgotPasswordEntity(final Integer forgotPasswordId, final Integer otpCode, final Date expirationTime, final UserEntity user)
+    public ForgotPasswordEntity(final UUID forgotPasswordId, final Integer otpCode, final Date expirationTime, final UserEntity user)
     {
         this.forgotPasswordId = forgotPasswordId;
         this.otpCode = otpCode;
@@ -39,12 +45,12 @@ public class ForgotPasswordEntity
         this.user = user;
     }
 
-    public Integer getForgotPasswordId()
+    public UUID getForgotPasswordId()
     {
         return forgotPasswordId;
     }
 
-    public void setForgotPasswordId(final Integer forgotPasswordId)
+    public void setForgotPasswordId(final UUID forgotPasswordId)
     {
         this.forgotPasswordId = forgotPasswordId;
     }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,13 +48,13 @@ public class QuizService
     }
 
     @Transactional(readOnly = true)
-    public List<QuestionResponse> getQuizById(final Integer id)
+    public List<QuestionResponse> getQuizByUid(final UUID Uid)
     {
-        final Optional<QuizEntity> quiz = this.quizRepository.findById(id);
+        final Optional<QuizEntity> quiz = this.quizRepository.findById(Uid);
 
         if (quiz.isEmpty())
         {
-            throw new ResourceNotFoundException("Not Found a Quiz : " + id);
+            throw new ResourceNotFoundException("Not Found a Quiz : " + Uid);
         }
 
         final List<QuestionEntity> questions = quiz.get().getQuestions();
@@ -70,13 +71,13 @@ public class QuizService
     }
 
     @Transactional
-    public String calculateResult(final Integer id, final List<QuizSubmitRequest> quizSubmitRequests)
+    public String calculateResult(final UUID Uid, final List<QuizSubmitRequest> quizSubmitRequests)
     {
-        final Optional<QuizEntity> quiz = this.quizRepository.findById(id);
+        final Optional<QuizEntity> quiz = this.quizRepository.findById(Uid);
 
         if (quiz.isEmpty())
         {
-            throw new ResourceNotFoundException("Not Found a Quiz : " + id);
+            throw new ResourceNotFoundException("Not Found a Quiz : " + Uid);
         }
 
         final List<QuestionEntity> questions = quiz.get().getQuestions();

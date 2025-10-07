@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/quiz")
@@ -37,19 +38,19 @@ public class QuizController
     }
 
     @GetMapping(
-            value = "/{id}",
+            value = "/{Uid}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<QuestionResponse>> getQuiz(@PathVariable final Integer id)
+    public ResponseEntity<List<QuestionResponse>> getQuizByUid(@PathVariable final UUID Uid)
     {
-        return new ResponseEntity<>(this.quizService.getQuizById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.quizService.getQuizByUid(Uid), HttpStatus.OK);
     }
 
     @PostMapping(
-            value = "/submit/{id}",
+            value = "/submit/{Uid}",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<String> submitQuiz(@PathVariable final Integer id, @RequestBody final List<QuizSubmitRequest> quizSubmitRequests)
+    public ResponseEntity<String> submitQuiz(@PathVariable final UUID Uid, @RequestBody final List<QuizSubmitRequest> quizSubmitRequests)
     {
-        return new ResponseEntity<>(this.quizService.calculateResult(id, quizSubmitRequests), HttpStatus.OK);
+        return new ResponseEntity<>(this.quizService.calculateResult(Uid, quizSubmitRequests), HttpStatus.OK);
     }
 }

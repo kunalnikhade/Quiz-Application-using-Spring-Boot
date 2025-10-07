@@ -42,6 +42,8 @@ public class SecurityConfig
                                 .permitAll()
                                 .requestMatchers("/api/question/**").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/api/question/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/api/quiz/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/api/quiz/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated())
                 .httpBasic(Customizer.withDefaults())

@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/question")
@@ -35,10 +36,10 @@ public class QuestionController
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping(value = "/admin/update/{id}")
-    public ResponseEntity<QuestionResponse> updateQuestionById(final @RequestBody QuestionRequest questionRequest, @PathVariable final Integer id)
+    @PutMapping(value = "/admin/update/{Uid}")
+    public ResponseEntity<QuestionResponse> updateQuestionByUid(final @RequestBody QuestionRequest questionRequest, @PathVariable final UUID Uid)
     {
-        return new ResponseEntity<>(this.questionService.updateQuestionUid(questionRequest, id), HttpStatus.OK);
+        return new ResponseEntity<>(this.questionService.updateQuestionUid(questionRequest, Uid), HttpStatus.OK);
     }
 
     @GetMapping(
@@ -70,11 +71,11 @@ public class QuestionController
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(
-            value = "/admin/delete/{id}",
+            value = "/admin/delete/{Uid}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Void> deleteById(final @PathVariable Integer id)
+    public ResponseEntity<Void> deleteByUid(final @PathVariable UUID Uid)
     {
-        this.questionService.deleteQuestionById(id);
+        this.questionService.deleteQuestionById(Uid);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

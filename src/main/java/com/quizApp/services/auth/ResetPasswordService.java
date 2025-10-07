@@ -21,7 +21,7 @@ public class ResetPasswordService
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void resetPassword( final ResetPasswordDto resetPasswordDto)
+    public void resetPassword(final ResetPasswordDto resetPasswordDto)
     {
         final String email = SecurityContextHolder.getContext().getAuthentication().getName();
 

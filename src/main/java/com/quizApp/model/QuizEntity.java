@@ -1,16 +1,23 @@
 package com.quizApp.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "quiz")
 public class QuizEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name = "title")
     private String title;
@@ -27,19 +34,19 @@ public class QuizEntity
     {
     }
 
-    public QuizEntity(final Integer id, final String title, final List<QuestionEntity> questions)
+    public QuizEntity(final UUID id, final String title, final List<QuestionEntity> questions)
     {
         this.id = id;
         this.title = title;
         this.questions = questions;
     }
 
-    public Integer getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(final Integer id)
+    public void setId(final UUID id)
     {
         this.id = id;
     }

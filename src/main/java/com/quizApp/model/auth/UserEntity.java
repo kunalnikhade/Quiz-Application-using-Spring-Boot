@@ -4,21 +4,27 @@ import com.quizApp.enumeration.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class UserEntity implements UserDetails
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @NotBlank(message = "Enter a Name")
     @Column(name = "name")
@@ -48,7 +54,7 @@ public class UserEntity implements UserDetails
     {
     }
 
-    public UserEntity(final Integer id, final String name, final String email, final String username, final String password, final UserRole role, final ForgotPasswordEntity forgotPassword)
+    public UserEntity(final UUID id, final String name, final String email, final String username, final String password, final UserRole role, final ForgotPasswordEntity forgotPassword)
     {
         this.id = id;
         this.name = name;
@@ -59,12 +65,12 @@ public class UserEntity implements UserDetails
         this.forgotPassword = forgotPassword;
     }
 
-    public Integer getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(final Integer id)
+    public void setId(final UUID id)
     {
         this.id = id;
     }
